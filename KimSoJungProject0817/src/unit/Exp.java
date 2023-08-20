@@ -8,7 +8,7 @@ import frame.MyFrame;
 public class Exp extends JLabel {
 	
 	public ImageIcon background = new ImageIcon(MyFrame.class.getResource("../image/exp.png"));	// ¿ÃπÃ¡ˆ
-	public int x = 360;
+	public int x = 0;
 
 	public Exp() {
 		setBounds(0,532,x, 8);

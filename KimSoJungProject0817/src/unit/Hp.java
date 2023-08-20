@@ -16,8 +16,8 @@ public class Hp extends JLabel {
 		setOpaque(false);
 	}
 	
-	public void boundsChange() {	// hp 깎일 시 이미지 가로 크기를 변경
-		setBounds(307,492,x, 13);
+	public void hpCheck(int hp) {	// hp 깎일 시 이미지 가로 크기를 변경
+		setBounds(307,492,x*hp/10, 13);
 	}
 	
 }

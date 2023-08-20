@@ -23,6 +23,7 @@ public class LoginPanel extends JPanel implements ActionListener  {
 	public LoginPanel() {
 		setSize(736, 542); // 사이즈 조정
 		setLayout(null); // layout 자유설정 (id,pass 입력필드, 버튼 위치 상세조정을 위해 필요)
+		
 		setVisible(false);
 
 		passField = new JPasswordField() {

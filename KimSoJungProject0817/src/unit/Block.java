@@ -14,7 +14,7 @@ public class Block extends JLabel {
 		this.xStart = xStart;
 		this.yStart = yStart;
 		setBounds(xStart, yStart, x, 10);
-		setOpaque(true);
+		setOpaque(false);
 	}
 
 }

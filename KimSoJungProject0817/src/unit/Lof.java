@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 
 public class Lof extends JLabel {
 
+	public int x = 25;
 	public int y;
 	public int xStart;
 	public int yStart;
@@ -13,8 +14,8 @@ public class Lof extends JLabel {
 		this.y = y;
 		this.xStart = xStart;
 		this.yStart = yStart;
-		setBounds(xStart, yStart, 25, y);
-		setOpaque(true);
+		setBounds(xStart, yStart, x, y);
+		setOpaque(false);
 	}
 
 }
