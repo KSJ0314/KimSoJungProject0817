@@ -375,6 +375,7 @@ public class Main {
 
 		MyFrame mf = new MyFrame();
 		Main ma = new Main();
+
 		mf.addKeyListener(new KeyAdapter() { // 키 이벤트
 			@Override
 			public void keyPressed(KeyEvent e) { // 키 눌렀을때
@@ -403,7 +404,7 @@ public class Main {
 						}
 					}
 					break;
-				case KeyEvent.VK_CONTROL:
+				case KeyEvent.VK_ALT:
 					if (mf.mainPanel.pl.canMove) {
 						if (mf.mainPanel.pl.isLanding) {
 							mf.mainPanel.pl.isLanding = false;
@@ -412,8 +413,7 @@ public class Main {
 						}
 					}
 					break;
-				case KeyEvent.VK_ALT:
-					System.out.println("ctrl");
+				case KeyEvent.VK_CONTROL:
 					mf.mainPanel.pl.exp++;
 					break;
 				case KeyEvent.VK_A:
