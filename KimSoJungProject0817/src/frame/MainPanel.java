@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import unit.Askill;
 import unit.Attack;
+import unit.BaseAt;
 import unit.Block;
 import unit.Dskill;
 import unit.Exp;
@@ -42,6 +43,7 @@ public class MainPanel extends JPanel {
 	public Lof[] lof = new Lof[3];
 	public LevelUp levelUp;
 	public Attack[] attack = new Attack[4];
+	public JLabel[] uthitJl = new JLabel[13];
 
 	public MainPanel() {
 		setSize(736, 542); // 사이즈 조정
@@ -57,16 +59,18 @@ public class MainPanel extends JPanel {
 		exp = new Exp();
 		pl = new Player();
 		levelUp = new LevelUp(0, 0);
-		attack[0] = new SnailAt();
+		attack[0] = new BaseAt();
 		attack[1] = new SnailAt();
 		attack[2] = new SwingAt();
 		attack[3] = new UltAt();
-		for (int i = 0; i < attack.length; i++) {
+		add(attack[0]);
+		for (int i = 1; i < attack.length; i++) {
 			add(attack[i]);
 			add(attack[i].hitJl);
 		}
-		for (JLabel i : attack[3].uthitJl) {
-			add(i);
+		for (int i = 0; i < 13; i++) {
+			uthitJl[i] = attack[3].uthitJl[i];
+			add(uthitJl[i]);
 		}
 		add(levelUp);
 		add(level);

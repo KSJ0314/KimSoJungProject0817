@@ -10,6 +10,7 @@ import unit.Attack;
 import unit.Block;
 import unit.Lof;
 import unit.Mob;
+import unit.Player;
 
 public class Main {
 
@@ -40,9 +41,6 @@ public class Main {
 			}
 
 			if (mf.mainPanel.mob[i].hit) {
-				if (mf.mainPanel.mob[i].hittime == 0) {
-					mf.mainPanel.mob[i].hp--;
-				}
 				if (mf.mainPanel.mob[i].right) {
 					mf.mainPanel.mob[i].setIcon(mf.mainPanel.mob[i].hitImageR);
 				} else {
@@ -78,15 +76,14 @@ public class Main {
 				mf.mainPanel.mob[i].stayCount = 0;
 				mf.mainPanel.mob[i].right = false;
 			}
-			
-			
+
 			// mob hit
 			for (Attack j : mf.mainPanel.attack) {
 				if (mf.mainPanel.mob[i].xStart <= j.xStart + j.x
 						&& mf.mainPanel.mob[i].xStart + mf.mainPanel.mob[i].x >= j.xStart
 						&& mf.mainPanel.mob[i].yStart <= j.yStart + j.y
-						&& mf.mainPanel.mob[i].yStart + mf.mainPanel.mob[i].y >= j.yStart
-						&& j.isVisible() && !j.hit) {
+						&& mf.mainPanel.mob[i].yStart + mf.mainPanel.mob[i].y >= j.yStart && j.isVisible() && !j.hit) {
+					System.out.println("hit");
 					j.hit = true;
 					mf.mainPanel.mob[i].hit = true;
 					mf.mainPanel.mob[i].hp -= j.damage;
@@ -143,6 +140,7 @@ public class Main {
 		// 블럭이 전부 닿이지 않았고 로프에 올라가지 않았고 움직일 수 있는 경우 player 위치 하락
 		if (count == mf.mainPanel.block.length && !mf.mainPanel.pl.isClimb && mf.mainPanel.pl.canMove) {
 			mf.mainPanel.pl.y += 6;
+			mf.mainPanel.pl.isLanding = false;
 		} else if (!mf.mainPanel.pl.isJump) { // 닿인 블럭이 있고 점프중이 아니면 player가 바닥에 있다고 인식
 			mf.mainPanel.pl.isLanding = true;
 		}
@@ -278,6 +276,7 @@ public class Main {
 	}
 
 	void lvUp(MyFrame mf) {
+		mf.mainPanel.pl.hp = 10;
 		mf.mainPanel.pl.lv++;
 		mf.mainPanel.level.lv++;
 		mf.mainPanel.level.levelUp();
@@ -303,6 +302,7 @@ public class Main {
 	}
 
 	void mobDie(MyFrame mf, Mob mob) {
+		mf.mainPanel.pl.exp += mob.exp;
 		mob.hit = false;
 		if (mob.right) {
 			mob.setIcon(mob.dieImageR[0]);
@@ -380,27 +380,40 @@ public class Main {
 		};
 		tr.start();
 	}
-	
+
 	void dSkill(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
 			public void run() {
 				try {
-					mf.mainPanel.attack[3].BoundsChange();
-					Thread.sleep(500);
-					mf.mainPanel.attack[3].xStart = -150;
-					mf.mainPanel.attack[3].yStart = -76;
+					mf.mainPanel.attack[3].setBounds(mf.mainPanel.pl);
+					for (int i = 0; i < mf.mainPanel.attack[3].atImage.length; i++) {
+						Thread.sleep(70);
+						mf.mainPanel.attack[3].utChange(mf.mainPanel.pl);
+					}
 					mf.mainPanel.attack[3].setVisible(false);
-					mf.mainPanel.attack[3].hit = false;
-					Thread.sleep(4500);
-					mf.mainPanel.sskill.able = true;
+					for (int i = 0; i < mf.mainPanel.mob.length; i++) {
+						if (mf.mainPanel.mob[i].isVisible()) {
+							mf.mainPanel.mob[i].hp -= 30;
+						}
+					}
+					for (int i = 0; i < 10; i++) {
+						Thread.sleep(70);
+						mf.mainPanel.attack[3].hitChange();
+						mf.mainPanel.attack[3].uthitBounds(mf.mainPanel.mob);
+					}
+					for (int i = 0; i < 13; i++) {
+						mf.mainPanel.attack[3].uthitJl[i].setVisible(false);
+					}
+					Thread.sleep(8040);
+					mf.mainPanel.dskill.able = true;
 				} catch (Exception e) {
 				}
 			}
 		};
 		tr.start();
 	}
-	
+
 	void mobHit(Attack at, Mob mob) {
 		Thread tr = new Thread() {
 			@Override
@@ -416,18 +429,16 @@ public class Main {
 		tr.start();
 	}
 
-	void ultHit(MyFrame mf) {
+	void baseAttack(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
 			public void run() {
-				mf.mainPanel.attack[3].hitJl.setVisible(true);
 				try {
-					for (int i = 0; i < 10; i++) {
-						Thread.sleep(50);
-						mf.mainPanel.attack[3].hitChange();
-						mf.mainPanel.attack[3].uthitBounds(mf.mainPanel.mob);
-					}
-					mf.mainPanel.levelUp.setVisible(false);
+					mf.mainPanel.attack[0].setVisible(true);
+					mf.mainPanel.attack[0].setBounds(mf.mainPanel.pl);
+					Thread.sleep(1000);
+					mf.mainPanel.attack[0].hit=false;
+					mf.mainPanel.attack[0].setVisible(false);
 				} catch (Exception e) {
 				}
 			}
@@ -478,8 +489,8 @@ public class Main {
 					}
 					break;
 				case KeyEvent.VK_CONTROL:
-					mf.mainPanel.pl.exp++;
-					ma.ultHit(mf);
+//					mf.mainPanel.pl.exp++;
+					ma.baseAttack(mf);
 					break;
 				case KeyEvent.VK_A:
 					if (mf.mainPanel.askill.able) {
@@ -497,7 +508,8 @@ public class Main {
 					break;
 				case KeyEvent.VK_D:
 					if (mf.mainPanel.dskill.able) {
-						
+						mf.mainPanel.dskill.able = false;
+						ma.dSkill(mf);
 					}
 					break;
 				}
@@ -515,6 +527,8 @@ public class Main {
 //		ma.visibleChange(mf.loginPanel, mf.charSelectPanel);
 //		ma.visibleChange(mf.charSelectPanel, mf.mainPanel);
 		ma.visibleChange(mf.loadingPanel, mf.mainPanel);
+		
+		mf.requestFocus();
 
 		while (true) {
 			try {

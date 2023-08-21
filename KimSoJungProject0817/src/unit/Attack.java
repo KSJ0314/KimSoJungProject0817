@@ -26,12 +26,14 @@ public abstract class Attack extends JLabel {
 	public JLabel[] uthitJl;
 	public boolean hit;
 	public boolean right;
+	public int hitIconNum;
+	public int atIconNum;
 	
 	public abstract void setBounds(Player pl);
 	public abstract void BoundsChange();
 	public abstract void hitBounds(Mob mob);
 	public void uthitBounds(Mob[] mob) {};
 	public void hitChange() {};
-	public void atChange() {};
+	public void utChange(Player pl) {};
 	
 }
