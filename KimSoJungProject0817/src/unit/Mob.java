@@ -33,11 +33,17 @@ public abstract class Mob extends JLabel {
 	public JLabel j2;
 	public boolean right;
 	public int stayCount = 0;
+	public int preStayCount;
 	public boolean stay = false;
 	public boolean hit;
 	public int hittime = 0;
+	public int moveNum = 0;
 	public int dieNum = -1;
 	public boolean isDie;
+	public int speed;
+	public boolean isMove;
+	public int jen;
+	public boolean startJen;
 	
 	public abstract void hpChange();
 	

@@ -12,6 +12,7 @@ public class MyFrame extends JFrame {	// 전체 프레임
 	public LoginPanel loginPanel;	// 로그인 씬
 	public CharSelectPanel charSelectPanel;	// 캐릭터선택 씬
 	public MainPanel mainPanel;	// 플레이 씬
+	public EndPanel endPanel;	// 종료 씬
 
 	public MyFrame() { // 전체 프레임
 
@@ -34,6 +35,9 @@ public class MyFrame extends JFrame {	// 전체 프레임
 		
 		mainPanel = new MainPanel();
 		add(mainPanel);
+		
+		endPanel = new EndPanel();
+		add(endPanel);
 		
 	}
 	

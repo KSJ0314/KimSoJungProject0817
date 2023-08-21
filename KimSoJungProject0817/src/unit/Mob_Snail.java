@@ -7,13 +7,17 @@ import frame.MyFrame;
 
 public class Mob_Snail extends Mob {
 
-	public Mob_Snail(int xStart, int yStart, int range) {
+	public Mob_Snail(int xStart, int yStart, int range, int preStayCount) {
 		prehp = 2;
 		hp = 2;
 		exp = 1;
 		x = 37;
 		y = 26;
 		damage = 1;
+		speed = 1;
+		jen = 2;
+		this.preStayCount = preStayCount;
+		stayCount = preStayCount;
 		this.xStart = xStart;
 		this.yStart = yStart;
 		this.prex = x;
@@ -53,7 +57,11 @@ public class Mob_Snail extends Mob {
 		dieImage[7] = new ImageIcon(MyFrame.class.getResource("../mob0_image/die8.png"));
 		dieImageR[7] = new ImageIcon(MyFrame.class.getResource("../mob0_image/die8R.png"));
 
-		setIcon(move[0]);
+		if (preStayCount == -1) {
+			setIcon(standR);
+		} else {
+			setIcon(stand);
+		}
 		setOpaque(false);
 
 		jl = new JLabel();
@@ -62,11 +70,13 @@ public class Mob_Snail extends Mob {
 		j2 = new JLabel();
 		j2.setBounds(xStart, yStart - 5, x, 4);
 		j2.setIcon(new ImageIcon(MyFrame.class.getResource("../image/black.png")));
+		
 	}
 
 	@Override
 	public void hpChange() {
 		jl.setBounds(xStart, yStart - 5, x * hp / 2, 4);
+		j2.setBounds(xStart, yStart - 5, x, 4);
 	}
 
 	@Override
@@ -82,7 +92,6 @@ public class Mob_Snail extends Mob {
 	public void BoundsChange() {
 		setBounds(xStart, yStart, x, y);
 		hpChange();
-		j2.setBounds(xStart, yStart - 5, x, 4);
 	}
 
 	@Override

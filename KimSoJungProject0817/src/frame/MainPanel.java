@@ -19,6 +19,7 @@ import unit.Level;
 import unit.LevelUp;
 import unit.Lof;
 import unit.Mob;
+import unit.Mob_Slime;
 import unit.Mob_Snail;
 import unit.Mp;
 import unit.Player;
@@ -38,7 +39,7 @@ public class MainPanel extends JPanel {
 	public Level level;
 	public Exp exp;
 	public Player pl;
-	public Mob[] mob = new Mob[6];
+	public Mob[] mob = new Mob[12];
 	public Block[] block = new Block[12];
 	public Lof[] lof = new Lof[3];
 	public LevelUp levelUp;
@@ -82,16 +83,19 @@ public class MainPanel extends JPanel {
 		add(dskill);
 		add(exp);
 		addBlock();
-		mob[0] = new Mob_Snail(132, 65, 50);
-		mob[1] = new Mob_Snail(548, 65, 50);
-		mob[2] = new Mob_Snail(92, 174, 40);
-		mob[3] = new Mob_Snail(592, 174, 40);
-		mob[4] = new Mob_Snail(110, 394, 55);
-		mob[5] = new Mob_Snail(573, 394, 55);
-		mob[0].right = true;
-		mob[3].right = true;
-		mob[5].right = true;
-		for (int i = 0; i < 6; i++) {
+		mob[0] = new Mob_Snail(132, 65, 50, -1);
+		mob[1] = new Mob_Snail(548, 65, 50, 1);
+		mob[2] = new Mob_Snail(92, 174, 40, 1);
+		mob[3] = new Mob_Snail(592, 174, 40, -1);
+		mob[4] = new Mob_Snail(110, 394, 55, -1);
+		mob[5] = new Mob_Snail(573, 394, 55, -1);
+		mob[6] = new Mob_Slime(132, 42, 50, -1);
+		mob[7] = new Mob_Slime(548, 42, 50, 1);
+		mob[8] = new Mob_Slime(92, 151, 40, 1);
+		mob[9] = new Mob_Slime(592, 151, 40, -1);
+		mob[10] = new Mob_Slime(110, 371, 55, -1);
+		mob[11] = new Mob_Slime(573, 371, 55, -1);
+		for (int i = 0; i < 12; i++) {
 			addMop(mob[i]);
 		}
 		add(pl);
@@ -134,16 +138,20 @@ public class MainPanel extends JPanel {
 		mob.yStart = mob.preyStart;
 		mob.x = mob.prex;
 		mob.y = mob.prey;
-		mob.right = false;
 		mob.isDie = false;
-		mob.setIcon(mob.move[0]);
 		mob.stayCount = 0;
 		mob.hittime = 0;
+		mob.stayCount = mob.preStayCount;
+		if (mob.preStayCount == -1) {
+			mob.setIcon(mob.standR);
+		} else {
+			mob.setIcon(mob.stand);
+		}
 		mob.setVisible(true);
 		mob.jl.setVisible(true);
 		mob.j2.setVisible(true);
 	}
-	
+
 	public void removeMop(Mob mob) {
 		mob.setVisible(false);
 		mob.jl.setVisible(false);
