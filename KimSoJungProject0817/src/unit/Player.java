@@ -6,7 +6,7 @@ public class Player extends JLabel {
 	
 	public int x = 340;
 	public int y = 370;
-	public int xSize = 30;
+	public int xSize = 40;
 	public int ySize = 50;
 	public int floor = y+ySize;
 	public int hp = 10;

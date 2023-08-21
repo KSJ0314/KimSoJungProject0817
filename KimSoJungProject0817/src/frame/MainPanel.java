@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import unit.Askill;
@@ -22,6 +23,8 @@ import unit.Mp;
 import unit.Player;
 import unit.SnailAt;
 import unit.Sskill;
+import unit.SwingAt;
+import unit.UltAt;
 
 public class MainPanel extends JPanel {
 	public Image background = new ImageIcon(MyFrame.class.getResource("../image/map1.png")).getImage(); // 배경화면
@@ -56,11 +59,14 @@ public class MainPanel extends JPanel {
 		levelUp = new LevelUp(0, 0);
 		attack[0] = new SnailAt();
 		attack[1] = new SnailAt();
-		attack[2] = new SnailAt();
-		attack[3] = new SnailAt();
+		attack[2] = new SwingAt();
+		attack[3] = new UltAt();
 		for (int i = 0; i < attack.length; i++) {
 			add(attack[i]);
 			add(attack[i].hitJl);
+		}
+		for (JLabel i : attack[3].uthitJl) {
+			add(i);
 		}
 		add(levelUp);
 		add(level);

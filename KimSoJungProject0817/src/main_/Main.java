@@ -78,15 +78,20 @@ public class Main {
 				mf.mainPanel.mob[i].stayCount = 0;
 				mf.mainPanel.mob[i].right = false;
 			}
-
-			if (mf.mainPanel.mob[i].xStart <= mf.mainPanel.attack[1].xStart + mf.mainPanel.attack[1].x
-					&& mf.mainPanel.mob[i].xStart + mf.mainPanel.mob[i].x >= mf.mainPanel.attack[1].xStart
-					&& mf.mainPanel.mob[i].yStart <= mf.mainPanel.attack[1].yStart + mf.mainPanel.attack[1].y
-					&& mf.mainPanel.mob[i].yStart + mf.mainPanel.mob[i].y >= mf.mainPanel.attack[1].yStart) {
-				mf.mainPanel.attack[1].hit = true;
-				mf.mainPanel.mob[i].hit = true;
-				mf.mainPanel.mob[i].hp -= mf.mainPanel.attack[1].damage;
-				mobHit(mf.mainPanel.attack[1], mf.mainPanel.mob[i]);
+			
+			
+			// mob hit
+			for (Attack j : mf.mainPanel.attack) {
+				if (mf.mainPanel.mob[i].xStart <= j.xStart + j.x
+						&& mf.mainPanel.mob[i].xStart + mf.mainPanel.mob[i].x >= j.xStart
+						&& mf.mainPanel.mob[i].yStart <= j.yStart + j.y
+						&& mf.mainPanel.mob[i].yStart + mf.mainPanel.mob[i].y >= j.yStart
+						&& j.isVisible() && !j.hit) {
+					j.hit = true;
+					mf.mainPanel.mob[i].hit = true;
+					mf.mainPanel.mob[i].hp -= j.damage;
+					mobHit(j, mf.mainPanel.mob[i]);
+				}
 			}
 
 		}
@@ -356,6 +361,46 @@ public class Main {
 		tr.start();
 	}
 
+	void sSkill(MyFrame mf) {
+		Thread tr = new Thread() {
+			@Override
+			public void run() {
+				try {
+					mf.mainPanel.attack[2].BoundsChange();
+					Thread.sleep(500);
+					mf.mainPanel.attack[2].xStart = -150;
+					mf.mainPanel.attack[2].yStart = -76;
+					mf.mainPanel.attack[2].setVisible(false);
+					mf.mainPanel.attack[2].hit = false;
+					Thread.sleep(4500);
+					mf.mainPanel.sskill.able = true;
+				} catch (Exception e) {
+				}
+			}
+		};
+		tr.start();
+	}
+	
+	void dSkill(MyFrame mf) {
+		Thread tr = new Thread() {
+			@Override
+			public void run() {
+				try {
+					mf.mainPanel.attack[3].BoundsChange();
+					Thread.sleep(500);
+					mf.mainPanel.attack[3].xStart = -150;
+					mf.mainPanel.attack[3].yStart = -76;
+					mf.mainPanel.attack[3].setVisible(false);
+					mf.mainPanel.attack[3].hit = false;
+					Thread.sleep(4500);
+					mf.mainPanel.sskill.able = true;
+				} catch (Exception e) {
+				}
+			}
+		};
+		tr.start();
+	}
+	
 	void mobHit(Attack at, Mob mob) {
 		Thread tr = new Thread() {
 			@Override
@@ -371,6 +416,25 @@ public class Main {
 		tr.start();
 	}
 
+	void ultHit(MyFrame mf) {
+		Thread tr = new Thread() {
+			@Override
+			public void run() {
+				mf.mainPanel.attack[3].hitJl.setVisible(true);
+				try {
+					for (int i = 0; i < 10; i++) {
+						Thread.sleep(50);
+						mf.mainPanel.attack[3].hitChange();
+						mf.mainPanel.attack[3].uthitBounds(mf.mainPanel.mob);
+					}
+					mf.mainPanel.levelUp.setVisible(false);
+				} catch (Exception e) {
+				}
+			}
+		};
+		tr.start();
+	}
+	
 	public static void main(String[] args) {
 
 		MyFrame mf = new MyFrame();
@@ -415,23 +479,25 @@ public class Main {
 					break;
 				case KeyEvent.VK_CONTROL:
 					mf.mainPanel.pl.exp++;
+					ma.ultHit(mf);
 					break;
 				case KeyEvent.VK_A:
 					if (mf.mainPanel.askill.able) {
 						mf.mainPanel.askill.able = false;
-						System.out.println("a");
 						mf.mainPanel.attack[1].setBounds(mf.mainPanel.pl);
 						ma.aSkill(mf);
 					}
 					break;
 				case KeyEvent.VK_S:
 					if (mf.mainPanel.sskill.able) {
-						System.out.println("s");
+						mf.mainPanel.sskill.able = false;
+						mf.mainPanel.attack[2].setBounds(mf.mainPanel.pl);
+						ma.sSkill(mf);
 					}
 					break;
 				case KeyEvent.VK_D:
 					if (mf.mainPanel.dskill.able) {
-						System.out.println("d");
+						
 					}
 					break;
 				}

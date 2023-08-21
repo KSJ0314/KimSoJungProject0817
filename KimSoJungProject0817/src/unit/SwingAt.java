@@ -5,24 +5,24 @@ import javax.swing.JLabel;
 
 import frame.MyFrame;
 
-public class SnailAt extends Attack {
+public class SwingAt extends Attack {
 
-	public SnailAt() {
-		x = 32;
-		y = 35;
+	public SwingAt() {
+		x = 150;
+		y = 76;
 		xStart = -x;
 		yStart = -y;
 		hitX = 76;
-		hitY = 79;
-		damage = 3;
+		hitY = 80;
+		damage = 5;
 		atImage = new ImageIcon[1];
 		atImageR = new ImageIcon[1];
 		hitImage = new ImageIcon[1];
 		hitImageR = new ImageIcon[1];
-		atImage[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/snail_At.gif"));
-		atImageR[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/snail_At_R.gif"));
-		hitImage[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/snail_Hit.gif"));
-		hitImageR[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/snail_Hit_R.gif"));
+		atImage[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/swing_At.gif"));
+		atImageR[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/swing_At_R.gif"));
+		hitImage[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/swing_Hit.gif"));
+		hitImageR[0] = new ImageIcon(MyFrame.class.getResource("../attack_Image/swing_Hit_R.gif"));
 		setOpaque(false);
 		setVisible(false);
 
@@ -36,13 +36,13 @@ public class SnailAt extends Attack {
 		setVisible(true);
 		right = pl.right;
 		if (right) {
-			xStart = pl.x + pl.xSize;
+			xStart = pl.x + pl.xSize - 100;
 			setIcon(atImageR[0]);
 		} else {
-			xStart = pl.x - x;
+			xStart = pl.x - x + 100;
 			setIcon(atImage[0]);
 		}
-		yStart = pl.floor - y - 5;
+		yStart = pl.floor - y + 20;
 	}
 
 	@Override
