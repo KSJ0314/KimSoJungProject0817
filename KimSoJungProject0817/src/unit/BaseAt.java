@@ -9,7 +9,7 @@ public class BaseAt extends Attack {
 		y = 50;
 		xStart = -x;
 		yStart = -y;
-		damage = 10;
+		damage = 1;
 		setOpaque(false);
 		hitJl = new JLabel();
 	}

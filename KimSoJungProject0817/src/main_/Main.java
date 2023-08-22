@@ -167,7 +167,7 @@ public class Main {
 		for (Block i : mf.mainPanel.block) { // 닿이지 않은 블럭의 개수 확인
 			if (!mf.mainPanel.pl.isJump) {
 				if (mf.mainPanel.pl.x + mf.mainPanel.pl.xSize >= i.xStart && mf.mainPanel.pl.x <= i.xStart + i.x
-						&& mf.mainPanel.pl.floor >= i.yStart+3 && mf.mainPanel.pl.floor <= i.yStart + 20) {
+						&& mf.mainPanel.pl.floor >= i.yStart + 3 && mf.mainPanel.pl.floor <= i.yStart + 20) {
 				} else {
 					count++;
 				}
@@ -185,9 +185,23 @@ public class Main {
 		// Hit 구현
 		for (Mob i : mf.mainPanel.mob) { // 닿이지 않은 mob 수 확인
 			// 닿인 몹이 있고 이미 맞고있지 않다면
-			if (mf.mainPanel.pl.x + mf.mainPanel.pl.xSize >= i.xStart && mf.mainPanel.pl.x <= i.xStart + i.x
+			if (mf.mainPanel.pl.right && mf.mainPanel.pl.lv == 5
+					&& mf.mainPanel.pl.x + mf.mainPanel.pl.xSize - 35 >= i.xStart && mf.mainPanel.pl.x <= i.xStart + i.x
 					&& mf.mainPanel.pl.floor >= i.yStart && mf.mainPanel.pl.y <= i.yStart + i.y
 					&& !mf.mainPanel.pl.isHit && !i.isDie && i.isVisible()) {
+				mf.mainPanel.pl.isHit = true;
+				mf.mainPanel.pl.canMove = false;
+				hit(mf, i);
+			} else if (!mf.mainPanel.pl.right && mf.mainPanel.pl.lv == 5
+					&& mf.mainPanel.pl.x + mf.mainPanel.pl.xSize >= i.xStart && mf.mainPanel.pl.x + 35 <= i.xStart + i.x
+					&& mf.mainPanel.pl.floor >= i.yStart && mf.mainPanel.pl.y <= i.yStart + i.y
+					&& !mf.mainPanel.pl.isHit && !i.isDie && i.isVisible()) {
+				mf.mainPanel.pl.isHit = true;
+				mf.mainPanel.pl.canMove = false;
+				hit(mf, i);
+			} else if (mf.mainPanel.pl.lv != 5 && mf.mainPanel.pl.x + mf.mainPanel.pl.xSize >= i.xStart
+					&& mf.mainPanel.pl.x <= i.xStart + i.x && mf.mainPanel.pl.floor >= i.yStart
+					&& mf.mainPanel.pl.y <= i.yStart + i.y && !mf.mainPanel.pl.isHit && !i.isDie && i.isVisible()) {
 				mf.mainPanel.pl.isHit = true;
 				mf.mainPanel.pl.canMove = false;
 				hit(mf, i);
@@ -355,7 +369,7 @@ public class Main {
 			mf.mainPanel.pl.xSize = 50;
 		}
 		if (mf.mainPanel.pl.lv == 5) {
-			mf.mainPanel.pl.xSize = 80;
+			mf.mainPanel.pl.xSize = 65;
 		}
 		mf.mainPanel.level.lv++;
 		mf.mainPanel.level.levelUp();
@@ -575,30 +589,67 @@ public class Main {
 		pl.attack = true;
 		pl.canMove = false;
 		pl.ySize += 15;
+
 		if (pl.right) {
 			pl.xSize += 10;
 			pl.x -= 20;
 		}
-		if (pl.lv >= 3) {
-			pl.y -= 10;
-		}
 		Thread tr = new Thread() {
+
 			@Override
 			public void run() {
+				int yP = 0;
+				int xP = 0;
+				if (pl.lv >= 3) {
+					yP = 10;
+					xP = 10;
+					pl.y -= yP;
+					pl.x += xP;
+				}
 				try {
 					Thread.sleep(400);
 					if (pl.lv >= 3) {
 						pl.y += 15;
 					}
 					Thread.sleep(300);
-					if (pl.lv >= 3) {
-						pl.y -= 5;
-					}
+					pl.y += yP-15;
+					pl.x -= xP;
+
 					pl.ySize -= 15;
 					if (pl.right) {
 						pl.xSize -= 10;
 						pl.x += 20;
 					}
+					pl.canMove = true;
+					pl.attack = false;
+					Thread.sleep(500);
+					pl.canAttack = true;
+				} catch (Exception e) {
+				}
+			}
+		};
+		tr.start();
+	}
+
+	void atAnima(Player pl) {
+		pl.canAttack = false;
+		pl.attack = true;
+		pl.canMove = false;
+		Thread tr = new Thread() {
+			@Override
+			public void run() {
+				try {
+					for (int i = 0; i < pl.swing2.length; i++) {
+						pl.atAni();
+						Thread.sleep(175);
+					}
+					if (pl.right) {
+						pl.x += 17;
+					} else {
+						pl.x -= 30;
+					}
+					pl.ySize = 60;
+					pl.xSize = 80;
 					pl.canMove = true;
 					pl.attack = false;
 					Thread.sleep(500);
@@ -669,9 +720,13 @@ public class Main {
 				case KeyEvent.VK_CONTROL:
 					if (mf.mainPanel.pl.canMove && mf.mainPanel.pl.canAttack) {
 						ma.baseAttack(mf);
-						ma.atIcon(mf.mainPanel.pl);
+						if (mf.mainPanel.pl.lv < 5) {
+							ma.atIcon(mf.mainPanel.pl);
+						} else {
+							ma.atAnima(mf.mainPanel.pl);
+						}
 					}
-					mf.mainPanel.pl.exp++;
+//					mf.mainPanel.pl.exp++;
 					break;
 				case KeyEvent.VK_A:
 					if (mf.mainPanel.askill.able && mf.mainPanel.pl.canMove) {
@@ -712,16 +767,16 @@ public class Main {
 		});
 
 		try {
-			Thread.sleep(100);
-//			Thread.sleep(11000);
+//			Thread.sleep(100);
+			Thread.sleep(11000);
 			mf.loadingPanel.setVisible(false);
 		} catch (Exception e) {
 		}
 
-//		ma.visibleChange(mf.loadingPanel, mf.loginPanel);
-//		ma.visibleChange(mf.loginPanel, mf.charSelectPanel);
-//		ma.visibleChange(mf.charSelectPanel, mf.mainPanel);
-		ma.visibleChange(mf.loadingPanel, mf.mainPanel);
+		ma.visibleChange(mf.loadingPanel, mf.loginPanel);
+		ma.visibleChange(mf.loginPanel, mf.charSelectPanel);
+		ma.visibleChange(mf.charSelectPanel, mf.mainPanel);
+//		ma.visibleChange(mf.loadingPanel, mf.mainPanel);
 
 		mf.requestFocus();
 
