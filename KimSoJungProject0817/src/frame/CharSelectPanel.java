@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class CharSelectPanel extends JPanel implements ActionListener {
 
-	public Image background = new ImageIcon(MyFrame.class.getResource("../image/charSelect.jpg")).getImage();	// 배경화면
+	public Image background = new ImageIcon(MyFrame.class.getResource("../image/charSelect.png")).getImage();	// 배경화면
 	public JButton startBtn ;	// 게임시작버튼
 
 	public CharSelectPanel() {

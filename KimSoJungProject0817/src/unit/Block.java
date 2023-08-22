@@ -1,13 +1,16 @@
 package unit;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 public class Block extends JLabel {
 
 	public int x;
 	public int xStart;
 	public int yStart;
-	public String tag = "block";
 
 	public Block(int xStart, int yStart, int x) {
 		this.x = x;
@@ -18,3 +21,5 @@ public class Block extends JLabel {
 	}
 
 }
+
+
