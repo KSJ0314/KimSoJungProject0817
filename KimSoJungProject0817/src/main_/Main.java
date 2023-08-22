@@ -548,8 +548,8 @@ public class Main {
 				try {
 					Thread.sleep(5000);
 					mob.setVisible(true);
-					mob.setVisible(true);
-					mob.setVisible(true);
+					mob.jl.setVisible(true);
+					mob.j2.setVisible(true);
 				} catch (Exception e) {
 				}
 			}
