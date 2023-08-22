@@ -42,3 +42,6 @@ public class MyFrame extends JFrame {	// 전체 프레임
 	}
 	
 }
+
+
+

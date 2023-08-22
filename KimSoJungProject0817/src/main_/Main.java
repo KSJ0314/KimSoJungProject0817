@@ -666,6 +666,16 @@ public class Main {
 		MyFrame mf = new MyFrame();
 		Main ma = new Main();
 
+		try {
+			Thread.sleep(11000);
+			mf.loadingPanel.setVisible(false);
+		} catch (Exception e) {
+		}
+
+		ma.visibleChange(mf.loadingPanel, mf.loginPanel);
+		ma.visibleChange(mf.loginPanel, mf.charSelectPanel);
+		ma.visibleChange(mf.charSelectPanel, mf.mainPanel);
+
 		mf.addKeyListener(new KeyAdapter() { // 키 이벤트
 			@Override
 			public void keyPressed(KeyEvent e) { // 키 눌렀을때
@@ -753,7 +763,7 @@ public class Main {
 					break;
 				}
 			}
-
+			
 			public void keyReleased(KeyEvent e) { // 키 누름 해제
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT: // 방향키(왼)
@@ -765,19 +775,6 @@ public class Main {
 				}
 			}
 		});
-
-		try {
-//			Thread.sleep(100);
-			Thread.sleep(11000);
-			mf.loadingPanel.setVisible(false);
-		} catch (Exception e) {
-		}
-
-		ma.visibleChange(mf.loadingPanel, mf.loginPanel);
-		ma.visibleChange(mf.loginPanel, mf.charSelectPanel);
-		ma.visibleChange(mf.charSelectPanel, mf.mainPanel);
-//		ma.visibleChange(mf.loadingPanel, mf.mainPanel);
-
 		mf.requestFocus();
 
 		while (true) {
@@ -785,8 +782,8 @@ public class Main {
 				Thread.sleep(20); // 속도 지연
 			} catch (Exception e) {
 			}
-			ma.mopCheck(mf); // mob 위치, hp체크, 액션(move, hit, die, 모션) 구현
-			ma.plCheck(mf); // player 위치, 중력 구현
+			ma.mopCheck(mf); // mob : 위치, move, hit, die, 모션 등 구현
+			ma.plCheck(mf); // player : Icon, 위치, 중력, Hit 등 구현
 
 			if (ma.end) {
 				break;
