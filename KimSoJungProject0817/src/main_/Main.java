@@ -18,6 +18,8 @@ public class Main {
 	public boolean end;
 	public boolean isOver;
 
+	// JPanel을 변경
+	// 게임 내 장면 전환 역할
 	void visibleChange(JPanel jp1, JPanel jp2) {
 		while (true) {
 			try {
@@ -30,6 +32,8 @@ public class Main {
 			}
 		}
 	}
+	
+	
 	void mopCheck(MyFrame mf) {
 		for (int i = 0; i < mf.mainPanel.mob.length; i++) {
 			if (!mf.mainPanel.mob[i].isVisible()) {
@@ -125,6 +129,7 @@ public class Main {
 
 		}
 	}
+	
 	void plCheck(MyFrame mf) {
 		// Icon 조정
 		mf.mainPanel.pl.iconCange();
@@ -237,6 +242,7 @@ public class Main {
 			break;
 		}
 	}
+	
 	void jump(MyFrame mf) {
 		Thread tr = new Thread() {
 			int count = 0;
@@ -269,6 +275,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void climb(MyFrame mf, int updown) {
 		int count = 0;
 		for (Lof i : mf.mainPanel.lof) {
@@ -296,6 +303,7 @@ public class Main {
 		}
 
 	}
+	
 	void climbIcon(Player pl) {
 		Thread tr = new Thread() {
 			@Override
@@ -318,6 +326,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void hit(MyFrame mf, Mob mob) {
 		Thread tr = new Thread() {
 
@@ -355,6 +364,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void lvUp(MyFrame mf) {
 		mf.mainPanel.pl.hp = 10;
 		mf.mainPanel.pl.lv++;
@@ -386,6 +396,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void mobDie(MyFrame mf, Mob mob) {
 		mf.mainPanel.pl.exp += mob.exp;
 		mob.hit = false;
@@ -409,6 +420,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void aSkill(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
@@ -441,6 +453,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void sSkill(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
@@ -460,6 +473,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void dSkill(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
@@ -492,6 +506,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void mobHit(Attack at, Mob mob) {
 		Thread tr = new Thread() {
 			@Override
@@ -506,6 +521,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void mobMove(Mob mob) {
 		Thread tr = new Thread() {
 			@Override
@@ -525,6 +541,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void baseAttack(MyFrame mf) {
 		Thread tr = new Thread() {
 			@Override
@@ -541,6 +558,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void jenStart(Mob mob) {
 		Thread tr = new Thread() {
 			@Override
@@ -556,6 +574,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void gameEnd(MyFrame mf) {
 		if (isOver) {
 			int replay = JOptionPane.showConfirmDialog(null, "<html>캐릭터가 사망했습니다.<br>다시 시작하겠습니까?</html>", "Game Over",
@@ -567,6 +586,7 @@ public class Main {
 			}
 		}
 	}
+	
 	void atIcon(Player pl) {
 		pl.canAttack = false;
 		pl.attack = true;
@@ -613,6 +633,7 @@ public class Main {
 		};
 		tr.start();
 	}
+	
 	void atAnima(Player pl) {
 		pl.canAttack = false;
 		pl.attack = true;
