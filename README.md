@@ -147,7 +147,7 @@ while (true) {
 	}
 	ma.mopCheck(mf); // mob : 위치, move, hit, die, 모션 등 구현
 	ma.plCheck(mf); // player : Icon, 위치, 중력, Hit 등 구현
->
+
 	if (ma.end) {
 		break;
 	}
