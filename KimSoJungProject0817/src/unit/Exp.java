@@ -16,7 +16,7 @@ public class Exp extends JLabel {
 		setOpaque(false);
 	}
 	
-	public void boundsChange() {	// hp 깎일 시 이미지 가로 크기를 변경
+	public void boundsChange() {
 		setBounds(0,532,x, 8);
 	}
 	

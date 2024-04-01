@@ -7,11 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import unit.Askill;
 import unit.Attack;
 import unit.BaseAt;
 import unit.Block;
-import unit.Dskill;
 import unit.Exp;
 import unit.Hp;
 import unit.HpMp;
@@ -23,8 +21,8 @@ import unit.Mob_Slime;
 import unit.Mob_Snail;
 import unit.Mp;
 import unit.Player;
+import unit.Skill;
 import unit.SnailAt;
-import unit.Sskill;
 import unit.SwingAt;
 import unit.UltAt;
 
@@ -33,9 +31,9 @@ public class MainPanel extends JPanel {
 	public HpMp hpmp;
 	public Hp hp;
 	public Mp mp;
-	public Askill askill;
-	public Sskill sskill;
-	public Dskill dskill;
+	public Skill askill;
+	public Skill sskill;
+	public Skill dskill;
 	public Level level;
 	public Exp exp;
 	public Player pl;
@@ -53,9 +51,9 @@ public class MainPanel extends JPanel {
 		hpmp = new HpMp();
 		hp = new Hp();
 		mp = new Mp();
-		askill = new Askill();
-		sskill = new Sskill();
-		dskill = new Dskill();
+		askill = new Skill("¥ﬁ∆ÿ¿Ã.png", "¥ﬁ∆ÿ¿Ãdisable.png", 616);
+		sskill = new Skill("Ω∫¿Æ.png", "Ω∫¿Ædisable.png", 652);
+		dskill = new Skill("±√.png", "±√disable.png", 686);
 		level = new Level();
 		exp = new Exp();
 		pl = new Player();
