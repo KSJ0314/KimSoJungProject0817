@@ -55,7 +55,7 @@ import javax.swing.JFrame;
 3) JLabel : 유닛
 
 * Panel위에 띄워지는 플레이어, 몬스터, 체력바, 블럭 등의 UI에 해당합니다.
-* 몬스터, 스킬 등의 요소는 기초 틀은 같고 세부요소(이미지, 크기 등)만 다르니 큰 틀에 해당하는 클래스를 만들어 상속하여 사용합니다.
+* 몬스터, 스킬 등의 요소는 기초 틀은 같고 세부요소(이미지, 크기 등)만 다르니 큰 틀에 해당하는 클래스를 만들어 상속하여 사용합니다. <br />
 ※ 자바의 특징! extends를 잘 활용하면 가독성과 재사용성이 극대화됩니다.
 
 4) JTextFiled, JPasswordField : 입력창
@@ -93,7 +93,7 @@ import javax.swing.JFrame;
 4) Scene2 - Login
 
 * LoadingPanel의 gif가 끝난 뒤 나타나는 panel입니다.
-* 배경 이미지위에 입력창, 버튼을 투명으로 배치하였습니다.
+* 배경 이미지위에 입력창, 버튼을 투명으로 배치하였습니다. <br />
 ※ DB연결이 없어 회원가입은 보류되었습니다. (임시 id:test / pw:1234)
 
 ![](https://velog.velcdn.com/images/ksj0314/post/6e711d75-9a40-487b-be8e-1b76971c5a31/image.png)
@@ -101,7 +101,7 @@ import javax.swing.JFrame;
 
 5) Scene3 - CharSelect
 
-* 단순히 게임시작 버튼만 구현한 panel입니다.
+* 단순히 게임시작 버튼만 구현한 panel입니다. <br />
 ※ DB연결이 없어 캐릭터 생성은 보류되었습니다.
 
 ![](https://velog.velcdn.com/images/ksj0314/post/4b57f006-d982-4cb5-bd43-f8406b595bf7/image.png)
