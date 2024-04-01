@@ -649,6 +649,8 @@ public class Main {
 		Main ma = new Main();
 
 		try {
+			mf.loadingPanel.setVisible(false);
+			ma.visibleChange(mf.loadingPanel, mf.loadingPanel);
 			Thread.sleep(11000);
 			mf.loadingPanel.setVisible(false);
 		} catch (Exception e) {
