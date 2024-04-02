@@ -190,7 +190,7 @@ public Player() {
 
 ### 4. 그 밖
 중력구현, 충돌구현, 공격구현 등 그 밖의 자세한 기능들은 Main.java의 내용을 확인해주세요. <br />
-[>> `Main.java` 바로가기](https://github.com/KSJ0314/Mini-MapleStory/blob/master/KimSoJungProject0817/src/main_/Main.java)
+[>> Main.java 바로가기](https://github.com/KSJ0314/Mini-MapleStory/blob/master/KimSoJungProject0817/src/main_/Main.java)
 
 ---
 
