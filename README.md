@@ -42,35 +42,35 @@ javax에 속한 swing은 다음과 같이 import하여 사용할 수 있습니�
 import javax.swing.JFrame;
 ```
 
-1) JFrame : 전체 틀
+#### 1) JFrame : 전체 틀
 
 * JFrame을 상속받는 클래스에서 `setTitle()`, `setSize()`등을 이용하여 띄울 창의 이름, 크기, 위치등을 설정해 전체 틀을 구현합니다.
 
-2) JPanel : 장면
+#### 2) JPanel : 장면
 
 * JFrame으로 띄워진 창에 그림을 그린다고 생각하면 이해가 쉬울것 같습니다.
 * Loading화면, Login화면등에 해당하는 Panel클래스를 만들어 Frame 클래스에 추가(`add`)합니다.
 * Panel 클래스의 `setVisible(true|false)` 메서드를 이용해 각 장면을 활성화/비활성화 합니다.
 
-3) JLabel : 유닛
+#### 3) JLabel : 유닛
 
 * Panel위에 띄워지는 플레이어, 몬스터, 체력바, 블럭 등의 UI에 해당합니다.
 * 몬스터, 스킬 등의 요소는 기초 틀은 같고 세부요소(이미지, 크기 등)만 다르니 큰 틀에 해당하는 클래스를 만들어 상속하여 사용합니다. <br />
 ※ 자바의 특징! extends를 잘 활용하면 가독성과 재사용성이 극대화됩니다.
 
-4) JTextFiled, JPasswordField : 입력창
+#### 4) JTextFiled, JPasswordField : 입력창
 
 * 로그인 기능을 구현하기 위해 사용합니다.
 * JPasswordField는 입력한 값이 `***`로 처리되어 보여집니다.
 * `getText()`를 이용해 입력값을 얻어옵니다.
 
-5) JButton
+#### 5) JButton
 
 * 클릭이벤트 처리를 위해 사용합니다.
 
 ### 2. 게임 흐름
 
-1) 실행
+#### 1) 실행
 
 * main 메서드에서 myFrame의 생성자를 호출함으로써 게임 창을 실행합니다.
 * myFrame에 여러 panel을 추가하고 한가지만 visible하여 화면을 구성합니다.
@@ -78,19 +78,19 @@ import javax.swing.JFrame;
 
 ![](https://velog.velcdn.com/images/ksj0314/post/bd559998-35eb-4d3e-ad90-644bf4517edd/image.png)
 
-2) 장면 전환
+#### 2) 장면 전환
 * panel A와 panel B를 파라미터로 받는 메서드를 생성하여 A의 `isVisible()`값을 확인하여 B를 `setVisible(true)`하는 메서드를 만듭니다.
 * main 메서드에서 장면 전환 메서드를 순서에 맞게 실행하여 Scene A -> B 전환을 구현합니다.
 
 ![](https://velog.velcdn.com/images/ksj0314/post/7c705ab5-ea81-4852-9bd7-e7f6619ebbd7/image.png)
 
 
-3) Scene1 - Loading
+#### 3) Scene1 - Loading
 
 * 게임 실행시 setVisible(true)되는 panel입니다.
 * 단순히 gif 배경만 존재하는 패널입니다.
 
-4) Scene2 - Login
+#### 4) Scene2 - Login
 
 * LoadingPanel의 gif가 끝난 뒤 나타나는 panel입니다.
 * 배경 이미지위에 입력창, 버튼을 투명으로 배치하였습니다. <br />
@@ -99,7 +99,7 @@ import javax.swing.JFrame;
 ![](https://velog.velcdn.com/images/ksj0314/post/6e711d75-9a40-487b-be8e-1b76971c5a31/image.png)
 
 
-5) Scene3 - CharSelect
+#### 5) Scene3 - CharSelect
 
 * 단순히 게임시작 버튼만 구현한 panel입니다. <br />
 ※ DB연결이 없어 캐릭터 생성은 보류되었습니다.
@@ -107,7 +107,7 @@ import javax.swing.JFrame;
 ![](https://velog.velcdn.com/images/ksj0314/post/4b57f006-d982-4cb5-bd43-f8406b595bf7/image.png)
 
 
-6) Scene4 - Main
+#### 6) Scene4 - Main
 
 * 배경위에 palyer, 몬스터, 지형, 스킬, 경험치&체력바 등의 각종 JLabel 클래스들이 add되어있는 panel입니다.
 
@@ -117,7 +117,7 @@ import javax.swing.JFrame;
 
 Main panel이 활성화된 후 각종 기능들이 실행됩니다.
 
-1) 키 입력
+#### 1) 키 입력
 
 * `addKeyListener`를 이용해 각종 키를 눌렀을때 필요한 메서드를 실행합니다.
 
@@ -134,7 +134,7 @@ mf.addKeyListener(new KeyAdapter() { // 키 이벤트
 			~~~
 ```
 
-2) 상태 체크
+#### 2) 상태 체크
 
 * 플레이어와 몬스터의 상태를 계속해서 체크하며 상황에 맞는 각종 메서드들을 실행합니다.
 
@@ -154,7 +154,7 @@ while (true) {
 }
 ```
 
-3) Thread
+#### 3) Thread
 
 * 플레이어의 모션, 각 몬스터의 모션, 스킬의 재사용 대기 등은 동시에 발생해야 합니다. (1번 몬스터가 움직임에 따라 다른 요소들이 정지하면 안됩니다.)
 * 따라서 각 요소들을 Thread로 관리하여 동시 실행을 구현해줍니다. 
@@ -169,7 +169,7 @@ void aSkill(MyFrame mf) {
             ~~~
 ```
 
-4) 유닛의 이미지
+#### 4) 유닛의 이미지
 
 * 플레이어, 몬스터, 스킬창(재사용 대기)등의 JLabel들은 상태에 따라 다양한 이미지를 가집니다.
 * swing의 ImageIcon객체와 JLabel의 `setIcon()`을 이용해 이미지를 변경합니다.
@@ -184,7 +184,7 @@ public Player() {
 ~~~
 ```
 
-5) 애니메이션
+#### 5) 애니메이션
 
 * 위의 이미지 변경을 `Thread.sleep()`을 적절히 이용하면 애니메이션을 구현할 수 있습니다.
 
